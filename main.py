@@ -15,6 +15,7 @@ PLAYER_HEIGHT = 60
 PLAYER_VEL = 5
 STAR_WIDTH = 10
 STAR_HEIGHT = 20
+STAR_VEL = 3
 
 
 FONT = pygame.font.SysFont("Digital-7", 25)
@@ -67,12 +68,18 @@ def main():
         if keys[pygame.K_RIGHT] and player.x + PLAYER_VEL + player.w <= WIDTH:
             player.x += PLAYER_VEL
 
-
+        for star in star[:]:
+            star.y += STAR_VEL
+            if star.y > HEIGHT:
+                stars.remove(star)
+            elif star >= player.y and star.colliderect(player):
+                stars.remove(star)
+                hit = True
+                break
+            
         draw(player, elapsed_time)
     
     pygame.quit()
 
 if __name__ == "__main__":
-    main() 
-
-    #Test Change
+    main()
