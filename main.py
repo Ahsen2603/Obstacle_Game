@@ -60,7 +60,7 @@ def main():
                 star = pygame.Rect(star_x, -STAR_HEIGHT, STAR_WIDTH, STAR_HEIGHT) # '-STARHEIGHT' gives a negative y coordanate.
                 stars.append(star)
 
-            star_add_increment = max(10,star_add_increment - 100)
+            star_add_increment = max(5,star_add_increment - 100)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
