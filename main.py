@@ -7,7 +7,7 @@ WIDTH, HEIGHT = 1600, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))#Window Size (Tupple passed)
 pygame.display.set_caption("Space Dodge")
 
-BG = pygame.transform.scale(pygame.image.load("Platform_Game\images\pxfuel.jpg"), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load("images\pxfuel.jpg"), (WIDTH, HEIGHT))
 
 PLAYER_WIDTH = 40   # Const of Player size
 PLAYER_HEIGHT = 60
@@ -21,13 +21,16 @@ STAR_VEL = 3
 FONT = pygame.font.SysFont("Digital-7", 25)
 
 
-def draw(player, elapsed_time):
+def draw(player, elapsed_time, stars):
     WIN.blit(BG, (0, 0))
     
     time_text = FONT.render(f"{round(elapsed_time)} Sec", 1, "white")
     WIN.blit(time_text, (10, 10))
 
     pygame.draw.rect(WIN, (0, 255, 68), player)
+
+    for star in stars:
+        pygame.draw.rect(WIN, "white", star)
 
     pygame.display.update()
 
@@ -68,16 +71,16 @@ def main():
         if keys[pygame.K_RIGHT] and player.x + PLAYER_VEL + player.w <= WIDTH:
             player.x += PLAYER_VEL
 
-        for star in star[:]:
+        for star in stars[:]: # dynamically copy to edit list
             star.y += STAR_VEL
             if star.y > HEIGHT:
                 stars.remove(star)
-            elif star >= player.y and star.colliderect(player):
+            elif star.y + star.height >= player.y and star.colliderect(player): # This handles collision of stars with player
                 stars.remove(star)
                 hit = True
                 break
             
-        draw(player, elapsed_time)
+        draw(player, elapsed_time, stars)
     
     pygame.quit()
 
