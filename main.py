@@ -3,14 +3,15 @@ import time
 import random
 pygame.font.init()
 
-WIDTH, HEIGHT = 1600, 800 
+WIDTH, HEIGHT = 1600, 800
+ 
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))#Window Size (Tupple passed)
 pygame.display.set_caption("Space Dodge")
 
 BG = pygame.transform.scale(pygame.image.load("images\pxfuel.jpg"), (WIDTH, HEIGHT))
 
-PLAYER_WIDTH = 40   # Const of Player size
-PLAYER_HEIGHT = 60
+PLAYER_WIDTH = 20   # Const of Player size
+PLAYER_HEIGHT = 30
 
 PLAYER_VEL = 5
 STAR_WIDTH = 10
@@ -43,7 +44,7 @@ def main():
     start_time = time.time()
     elapsed_time = 0
 
-    star_add_increment = 2000
+    star_add_increment = 1000
     star_count = 0
 
     stars = []
@@ -54,12 +55,12 @@ def main():
         elapsed_time = time.time() - start_time
 
         if star_count > star_add_increment: # '_' is a blank placeholder so that I can itterate 3 times. 
-            for _ in range(3):
-                star_x = random.randint(0, WIDTH - STAR_WIDTH)
+            for _ in range(1):
+                star_x = random.randint(0, WIDTH)
                 star = pygame.Rect(star_x, -STAR_HEIGHT, STAR_WIDTH, STAR_HEIGHT) # '-STARHEIGHT' gives a negative y coordanate.
                 stars.append(star)
 
-            star_add_increment = max(200,star_add_increment - 50)
+            star_add_increment = max(10,star_add_increment - 100)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -83,12 +84,12 @@ def main():
         
 
         if hit: 
-            lost_text = FONT.render("You Lost!, 1, "white )
+            lost_text = FONT.render("You Lost!", 1, "white")
             WIN.blit(lost_text, (WIDTH/2 - lost_text.get_width()/2, HEIGHT/2 - lost_text.get_height()/2))
             pygame.display.update()
             pygame.time.delay(4000)
             break
-        
+
         draw(player, elapsed_time, stars)
     
     pygame.quit()
