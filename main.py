@@ -8,7 +8,7 @@ WIDTH, HEIGHT = 1600, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))#Window Size (Tupple passed)
 pygame.display.set_caption("Space Dodge")
 
-BG = pygame.transform.scale(pygame.image.load("images\pxfuel.jpg"), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load("images\star-city-8bit.jpg"), (WIDTH, HEIGHT))
 
 PLAYER_WIDTH = 20   # Const of Player size
 PLAYER_HEIGHT = 30
